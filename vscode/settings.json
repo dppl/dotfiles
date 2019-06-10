@@ -1,0 +1,74 @@
+{
+  "editor.fontFamily": " 'Iosevka', 'IBM Plex Mono', 'Fira Code'",
+  "editor.wordWrap": "on",
+  "editor.rulers": [100],
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.tabSize": 2
+  },
+  "[ruby]": {
+    "editor.tabSize": 2
+  },
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "files.insertFinalNewline": true,
+  "editor.renderLineHighlight": "all",
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": false,
+  "terminal.integrated.fontSize": 12,
+  "prettier.eslintIntegration": true,
+  "files.eol": "\n",
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100, AccessModifierOffset: -3}",
+  "extensions.ignoreRecommendations": false,
+  "python.pythonPath": "/usr/local/bin/python3",
+  "terminal.integrated.fontWeightBold": "normal",
+  "python.linting.pylintArgs": ["--load-plugins=pylint_django"],
+  "editor.fontLigatures": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "prettier.tslintIntegration": true,
+  "[go]": {
+    "editor.snippetSuggestions": "none",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
+  "go.alternateTools": {
+    "go-langserver": "gopls"
+  },
+  "go.languageServerExperimentalFeatures": {
+    "format": true,
+    "autoComplete": true
+  },
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast",
+    "--enable=golint",
+    "--enable=goimports",
+    "--disable=gosimple"
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.lineNumbers": "relative",
+  "gitlens.views.repositories.location": "gitlens",
+  "gitlens.views.fileHistory.location": "gitlens",
+  "gitlens.views.lineHistory.location": "gitlens",
+  "gitlens.views.compare.location": "gitlens",
+  "gitlens.views.search.location": "gitlens",
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.currentLine.enabled": false,
+  "workbench.colorTheme": "Dracula",
+  "editor.fontSize": 15,
+  "debug.console.fontSize": 14,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
