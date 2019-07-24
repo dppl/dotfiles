@@ -2,9 +2,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
+Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-python/python-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -22,7 +23,6 @@ Plug 'elzr/vim-json' , {'for' : 'json'}
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'tpope/vim-sensible'
 Plug 'arcticicestudio/nord-vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'cespare/vim-toml'
@@ -41,8 +41,8 @@ filetype plugin indent on     " required
 "=====================================================
 "===================== SETTINGS ======================
 
-let g:python_host_prog='/Users/dappel/.local/share/virtualenvs/neovim2-GXHv1prk/bin/python'
-let g:python3_host_prog='/Users/dappel/.local/share/virtualenvs/neovim3-toqV01_M/bin/python'
+let g:python_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python3'
 let g:python_highlight_all = 1
 
 set laststatus=2
@@ -229,7 +229,6 @@ nnoremap <C-z> :bprev<CR>
 augroup filetypedetect
   command! -nargs=* -complete=help Help vertical belowright help <args>
   autocmd FileType help wincmd L
-  autocmd FileType markdown setl conceallevel=0
 
   autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
   autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
@@ -280,6 +279,11 @@ set wildignore+=*.orig                           " Merge resolution files
 "====================== PLUGINS ======================
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+let g:vimtex_view_method = 'zathura'
+let g:tex_conceal = ""
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
@@ -402,7 +406,6 @@ autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
 
 
 " =================== vim-airline ========================
-let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 
