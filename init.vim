@@ -1,36 +1,40 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Completion / Linting
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+
+" Languages
+Plug 'fatih/vim-go', {'for' : 'go'}
+
+" Syntax
+Plug 'vim-python/python-syntax', {'for' : 'python'}
+Plug 'chemzqm/vim-jsx-improve', {'for' : 'javascript'}
+Plug 'cespare/vim-toml', {'for' : 'toml'}
+Plug 'stephpy/vim-yaml', {'for' : 'yaml'}
+Plug 'plasticboy/vim-markdown', {'for' : 'markdown'}
+Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/', 'for' : 'dockerfile'}
+Plug 'elzr/vim-json' , {'for' : 'json'}
+
+" tpope
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+
+" Util
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-Plug 'w0rp/ale'
-Plug 'fatih/vim-go'
-Plug 'rust-lang/rust.vim'
-Plug 'vim-python/python-syntax'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'SirVer/ultisnips'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'Yggdroot/indentLine'
-Plug 'elzr/vim-json' , {'for' : 'json'}
-Plug 'chemzqm/vim-jsx-improve'
-Plug 'tpope/vim-sensible'
-Plug 'arcticicestudio/nord-vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'Raimondi/delimitMate'
-Plug 'cespare/vim-toml'
-Plug 'stephpy/vim-yaml'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
+Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
+
+" Themes
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -104,6 +108,9 @@ set termguicolors
 
 let g:nord_underline = 1
 color nord
+" let g:material_terminal_italics = 1
+" let g:material_theme_style = 'darker'
+" colorscheme material
 
 "=====================================================
 "===================== MAPPINGS ======================
@@ -276,6 +283,7 @@ set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 
+
 "=====================================================
 "====================== PLUGINS ======================
 let g:ale_set_loclist = 0
@@ -295,7 +303,6 @@ noremap <Leader>n :NERDTreeToggle<cr>
 noremap <Leader>f :NERDTreeFind<cr>
 
 let NERDTreeShowHidden = 1
-let NERDTreeMinimalUI = 1
 
 let NERDTreeIgnore=['\.vim$', '\~$', '\.git$', '.DS_Store']
 
@@ -343,11 +350,11 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 let g:ale_linters = {
-  \   'go': ['golint', 'govet'],
-\}
+      \   'go': ['golint', 'govet'],
+      \}
 let g:ale_fixers = {
-  \   'go': ['goimports'],
-\}
+      \   'go': ['goimports'],
+      \}
 
 " ==================== vim-go ====================
 let g:go_fmt_command = "goimports"
@@ -356,14 +363,12 @@ let g:go_term_enabled = 1
 let g:go_snippet_engine = "ultisnips"
 
 let g:go_fmt_autosave = 1
-let g:go_auto_sameids = 1
-
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_format_strings = 1
-let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 0
 let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
+
 
 
 autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
@@ -386,26 +391,39 @@ augroup go
   autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 augroup END
 
-" ==================== rust ====================
-
-let g:rustfmt_autosave = 1
-
 " ==================== utilsnips ====================
 let g:SuperTabDefaultCompletionType = "context"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" ========= vim-better-whitespace ==================
-let blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
-autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+" =================== status line ========================
+let g:lightline = {}
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
 
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
 
-" =================== vim-airline ========================
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:lightline.active = { 
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+      \              [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ }
 
-let g:airline_theme='nord'
+" let g:lightline.colorscheme = 'material_vim'
+let g:lightline.colorscheme = 'nord'
 
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 " vim:ts=2:sw=2:et

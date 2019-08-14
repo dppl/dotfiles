@@ -8,7 +8,7 @@ export ZSH="/Users/dappel/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME=""
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,58 +69,30 @@ plugins=(
   pip
   python
   osx
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+setopt HIST_IGNORE_SPACE
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-autoload -U promptinit; promptinit
-prompt pure
-
 [ -f ~/.aliases ] && source ~/.aliases
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-#If you receive "highlighters directory not found" error message,
-#you may need to add the following to your .zshenv:
-#export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting
-
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.purepower ] && source ~/.purepower
 
-eval "$(pipenv --completion)"
-
-setopt HIST_IGNORE_SPACE
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 export GOPATH=$HOME/go
 export GOPROXY=https://proxy.golang.org
@@ -130,4 +102,8 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH=$PATH:$GOPATH/bin
 export PATH="/usr/local/sbin:$PATH"
 
-export CLIENT_SECRET=""
+export CLIENT_SECRET=3e0ab90c-6bb0-4771-aad9-508437e89bc5
+
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
