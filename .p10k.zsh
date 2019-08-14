@@ -285,12 +285,12 @@ fi
   # '#tag' if on a tag.
   vcs+='${VCS_STATUS_TAG:+%f#%4F${VCS_STATUS_TAG//\%/%%}}'
   # ⇣42 if behind the remote.
-  vcs+='${${VCS_STATUS_COMMITS_BEHIND:#0}:+ %4F⇣${VCS_STATUS_COMMITS_BEHIND}}'
+  vcs+='${${VCS_STATUS_COMMITS_BEHIND:#0}:+ %2F⇣${VCS_STATUS_COMMITS_BEHIND}}'
   # ⇡42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
   # If you want '⇣42 ⇡42' instead, replace '${${(M)VCS_STATUS_COMMITS_BEHIND:#0}:+ }' with ' '.
-  vcs+='${${VCS_STATUS_COMMITS_AHEAD:#0}:+${${(M)VCS_STATUS_COMMITS_BEHIND:#0}:+ }%4F⇡${VCS_STATUS_COMMITS_AHEAD}}'
+  vcs+='${${VCS_STATUS_COMMITS_AHEAD:#0}:+${${(M)VCS_STATUS_COMMITS_BEHIND:#0}:+ }%2F⇡${VCS_STATUS_COMMITS_AHEAD}}'
   # *42 if have stashes.
-  vcs+='${${VCS_STATUS_STASHES:#0}:+ %4F*${VCS_STATUS_STASHES}}'
+  vcs+='${${VCS_STATUS_STASHES:#0}:+ %2F*${VCS_STATUS_STASHES}}'
   # 'merge' if the repo is in an unusual state.
   vcs+='${VCS_STATUS_ACTION:+ %1${VCS_STATUS_ACTION//\%/%%}}'
   # ~42 if have merge conflicts.
@@ -302,7 +302,7 @@ fi
   # ?42 if have untracked files. It's really a question mark, your font isn't broken.
   # See POWERLEVEL9K_VCS_UNTRACKED_ICON below if you want to use a different icon.
   # Remove the next line if you don't want to see untracked files at all.
-  vcs+='${${VCS_STATUS_NUM_UNTRACKED:#0}:+ %4F'${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}'${VCS_STATUS_NUM_UNTRACKED}}'
+  vcs+='${${VCS_STATUS_NUM_UNTRACKED:#0}:+ %6F'${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}'${VCS_STATUS_NUM_UNTRACKED}}'
   # If P9K_CONTENT is not empty, leave it unchanged. It's either "loading" or from vcs_info.
   vcs="\${P9K_CONTENT:-$vcs}"
 
