@@ -1,10 +1,11 @@
 {
-  "editor.fontFamily": " 'Iosevka', 'IBM Plex Mono', 'Fira Code'",
+  "editor.fontFamily": "'FiraCode-Retina', 'Iosevka'",
   "editor.wordWrap": "on",
-  "editor.rulers": [100],
+  "editor.rulers": [
+    100
+  ],
   "[javascript]": {
-    "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.tabSize": 2
   },
   "[javascriptreact]": {
     "editor.tabSize": 2
@@ -19,56 +20,226 @@
   "files.insertFinalNewline": true,
   "editor.renderLineHighlight": "all",
   "editor.minimap.enabled": false,
-  "editor.formatOnSave": false,
-  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontSize": 14,
   "prettier.eslintIntegration": true,
   "files.eol": "\n",
   "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100, AccessModifierOffset: -3}",
   "extensions.ignoreRecommendations": false,
   "python.pythonPath": "/usr/local/bin/python3",
-  "terminal.integrated.fontWeightBold": "normal",
-  "python.linting.pylintArgs": ["--load-plugins=pylint_django"],
+  "python.linting.pylintArgs": [
+    "--load-plugins=pylint_django"
+  ],
   "editor.fontLigatures": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "prettier.tslintIntegration": true,
   "[go]": {
-    "editor.snippetSuggestions": "none",
-    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
     }
   },
-  "go.formatTool": "goimports",
   "go.useLanguageServer": true,
-  "go.alternateTools": {
-    "go-langserver": "gopls"
-  },
-  "go.languageServerExperimentalFeatures": {
-    "format": true,
-    "autoComplete": true
-  },
-  "go.lintTool": "golangci-lint",
-  "go.lintFlags": [
-    "--fast",
-    "--enable=golint",
-    "--enable=goimports",
-    "--disable=gosimple"
-  ],
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "editor.lineNumbers": "relative",
   "gitlens.views.repositories.location": "gitlens",
   "gitlens.views.fileHistory.location": "gitlens",
   "gitlens.views.lineHistory.location": "gitlens",
   "gitlens.views.compare.location": "gitlens",
   "gitlens.views.search.location": "gitlens",
-  "gitlens.hovers.currentLine.over": "line",
-  "gitlens.currentLine.enabled": false,
-  "workbench.colorTheme": "Dracula",
-  "editor.fontSize": 15,
   "debug.console.fontSize": 14,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "latex-workshop.view.pdf.viewer": "tab",
+  "workbench.colorTheme": "Dracula",
+  "breadcrumbs.enabled": true,
+  "editor.renderControlCharacters": false,
+  "editor.formatOnSave": true,
+  "workbench.statusBar.visible": true,
+  "vim.useSystemClipboard": true,
+  "vim.leader": ",",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "w"
+      ],
+      "commands": [
+        "workbench.action.files.save"
+      ]
+    },
+    {
+      "before": [
+        "n"
+      ],
+      "after": [
+        "n",
+        "z",
+        "z",
+        "v"
+      ]
+    },
+    {
+      "before": [
+        "N"
+      ],
+      "after": [
+        "N",
+        "z",
+        "z",
+        "v"
+      ]
+    },
+    {
+      "before": [
+        "<C-d>"
+      ],
+      "after": [
+        "<C-d>",
+        "z",
+        "z"
+      ]
+    },
+    {
+      "before": [
+        "<C-u>"
+      ],
+      "after": [
+        "<C-u>",
+        "z",
+        "z"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "<space"
+      ],
+      "commands": [
+        ":nohlsearch"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "q",
+        "f"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.gotoSymbol"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "a"
+      ],
+      "commands": [
+        "workbench.actions.view.problems"
+      ]
+    },
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "editor.action.marker.nextInFiles"
+      ]
+    },
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "editor.action.marker.prevInFiles"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "n"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "v"
+      ],
+      "commands": [
+        "editor.action.revealDefinitionAside"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "d"
+      ],
+      "commands": [
+        "editor.action.peekDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "y"
+      ],
+      "commands": [
+        "editor.action.goToTypeDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.referenceSearch.trigger"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "i"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+  ],
+  "workbench.activityBar.visible": true,
+  "gitlens.advanced.telemetry.enabled": false,
+  "gitlens.blame.heatmap.enabled": false,
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
+  "editor.fontSize": 14,
 }
