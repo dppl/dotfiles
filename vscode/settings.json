@@ -1,11 +1,12 @@
 {
-  "editor.fontFamily": "'FiraCode-Retina', 'Iosevka'",
+  "editor.fontFamily": "'Cascadia Code PL', 'FiraCode-Retina', 'Iosevka'",
   "editor.wordWrap": "on",
   "editor.rulers": [
     100
   ],
   "[javascript]": {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[javascriptreact]": {
     "editor.tabSize": 2
@@ -21,9 +22,7 @@
   "editor.renderLineHighlight": "all",
   "editor.minimap.enabled": false,
   "terminal.integrated.fontSize": 14,
-  "prettier.eslintIntegration": true,
   "files.eol": "\n",
-  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100, AccessModifierOffset: -3}",
   "extensions.ignoreRecommendations": false,
   "python.pythonPath": "/usr/local/bin/python3",
   "python.linting.pylintArgs": [
@@ -31,7 +30,6 @@
   ],
   "editor.fontLigatures": true,
   "diffEditor.ignoreTrimWhitespace": false,
-  "prettier.tslintIntegration": true,
   "[go]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
@@ -39,13 +37,7 @@
   },
   "go.useLanguageServer": true,
   "editor.lineNumbers": "relative",
-  "gitlens.views.repositories.location": "gitlens",
-  "gitlens.views.fileHistory.location": "gitlens",
-  "gitlens.views.lineHistory.location": "gitlens",
-  "gitlens.views.compare.location": "gitlens",
-  "gitlens.views.search.location": "gitlens",
   "debug.console.fontSize": 14,
-  "latex-workshop.view.pdf.viewer": "tab",
   "workbench.colorTheme": "Dracula",
   "breadcrumbs.enabled": true,
   "editor.renderControlCharacters": false,
@@ -242,4 +234,9 @@
   "gitlens.codeLens.authors.enabled": false,
   "gitlens.codeLens.recentChange.enabled": false,
   "editor.fontSize": 14,
+  "eslint.run": "onSave",
+  "eslint.autoFixOnSave": true,
+  "go.formatTool": "goimports",
+  "go.autocompleteUnimportedPackages": true,
+  "window.zoomLevel": 0,
 }

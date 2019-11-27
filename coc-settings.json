@@ -18,24 +18,8 @@
     },
     "golang": {
       "command": "gopls",
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ],
-      "initializationOptions": {
-        "diagnosticsEnabled": true
-      }
-    },
-    "rust": {
-      "command": "rls",
-      "filetypes": [
-        "rust"
-      ]
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
     },
     "dockerfile": {
       "command": "docker-langserver",

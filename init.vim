@@ -35,6 +35,7 @@ Plug 'airblade/vim-gitgutter'
 
 " Themes
 Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 call plug#end()
 
@@ -104,13 +105,13 @@ if has('mouse')
 endif
 
 syntax on
+
 set termguicolors
 
-let g:nord_underline = 1
-color nord
-" let g:material_terminal_italics = 1
-" let g:material_theme_style = 'darker'
-" colorscheme material
+" let g:nord_underline = 1
+" color nord
+
+color dracula
 
 "=====================================================
 "===================== MAPPINGS ======================
@@ -420,10 +421,10 @@ let g:lightline.active = {
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ }
 
-" let g:lightline.colorscheme = 'material_vim'
-let g:lightline.colorscheme = 'nord'
+let g:lightline.colorscheme = 'dracula'
 
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
+
 " vim:ts=2:sw=2:et
