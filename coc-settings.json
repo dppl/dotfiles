@@ -1,21 +1,5 @@
 {
   "languageserver": {
-    "clangd": {
-      "command": "/usr/local/opt/llvm/bin/clangd",
-      "rootPatterns": [
-        "compile_flags.txt",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "c",
-        "cpp",
-        "objc",
-        "objcpp"
-      ]
-    },
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],
