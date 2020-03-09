@@ -1,0 +1,161 @@
+shell:
+  program: login
+  args:
+    - -fp
+    - dappel
+
+window:
+  padding:
+    x: 5
+    y: 5
+  dynamic_padding: true
+
+font:
+  normal:
+    family: JetBrains Mono
+    style: Regular
+
+  bold:
+    family: JetBrains Mono
+    style: Bold
+
+  italic:
+    family: JetBrains Mono
+    style: Italic
+
+  bold_italic:
+    family: JetBrains Mono
+    style: Bold Italic
+
+  size: 14.0
+  use_thin_strokes: false
+
+schemes:
+  palenight: &palenight
+    primary:
+      background: "#292d3e"
+      foreground: "#bfc7d5"
+    cursor:
+      text: "#292d3e"
+      cursor: "#FFCC00"
+    normal:
+      black: "#292d3e"
+      red: "#f07178"
+      green: "#c3e88d"
+      yellow: "#ffcb6b"
+      blue: "#82aaff"
+      magenta: "#c792ea"
+      cyan: "#89DDFF"
+      white: "#d0d0d0"
+    bright:
+      black: "#434758"
+      red: "#ff8b92"
+      green: "#ddffa7"
+      yellow: "#ffe585"
+      blue: "#9cc4ff"
+      magenta: "#e1acff"
+      cyan: "#a3f7ff"
+      white: "#fefefe"
+
+  nord: &nord
+    primary:
+      background: "0x2E3440"
+      foreground: "0xD8DEE9"
+    cursor:
+      text: "0x2E3440"
+      cursor: "0xD8DEE9"
+    normal:
+      black: "0x3B4252"
+      red: "0xBF616A"
+      green: "0xA3BE8C"
+      yellow: "0xEBCB8B"
+      blue: "0x81A1C1"
+      magenta: "0xB48EAD"
+      cyan: "0x88C0D0"
+      white: "0xE5E9F0"
+    bright:
+      black: "0x4C566A"
+      red: "0xBF616A"
+      green: "0xA3BE8C"
+      yellow: "0xEBCB8B"
+      blue: "0x81A1C1"
+      magenta: "0xB48EAD"
+      cyan: "0x8FBCBB"
+      white: "0xECEFF4"
+
+  hybrid: &hybrid
+    primary:
+      background: "#27292c"
+      foreground: "#d0d2d1"
+    normal:
+      black: "#35383b"
+      red: "#b05655"
+      green: "#769972"
+      yellow: "#e1a574"
+      blue: "#7693ac"
+      magenta: "#977ba0"
+      cyan: "#749e99"
+      white: "#848b92"
+    bright:
+      black: "#484c52"
+      red: "#d27c7b"
+      green: "#dffebe"
+      yellow: "#f0d189"
+      blue: "#96b1c9"
+      magenta: "#bfa5c7"
+      cyan: "#9fc9c3"
+      white: "#fcf7e2"
+
+  oceanic_next: &oceanic_next
+    primary:
+      background: "#1b2b34"
+      foreground: "#d8dee9"
+    cursor:
+      text: "#1b2b34"
+      cursor: "#ffffff"
+    normal:
+      black: "#343d46"
+      red: "#EC5f67"
+      green: "#99C794"
+      yellow: "#FAC863"
+      blue: "#6699cc"
+      magenta: "#c594c5"
+      cyan: "#5fb3b3"
+      white: "#d8dee9"
+    bright:
+      black: "#343d46"
+      red: "#EC5f67"
+      green: "#99C794"
+      yellow: "#FAC863"
+      blue: "#6699cc"
+      magenta: "#c594c5"
+      cyan: "#5fb3b3"
+      white: "#d8dee9"
+
+  nightowl: &nightowl
+    primary:
+      background: "#011627"
+      foreground: "#d8dee9"
+    cursor:
+      text: "#011627"
+      cursor: "#7e57c2"
+    normal:
+      black: "#011627"
+      red: "#EF5350"
+      green: "#22da6e"
+      yellow: "#addb67"
+      blue: "#82aaff"
+      magenta: "#c792ea"
+      cyan: "#21c7a8"
+      white: "#ffffff"
+    bright:
+      black: "#575656"
+      red: "#ef5350"
+      green: "#22da6e"
+      yellow: "#ffeb95"
+      blue: "#82aaff"
+      magenta: "#c792ea"
+      cyan: "#7fdbca"
+      white: "#ffffff"
+
+colors: *palenight
