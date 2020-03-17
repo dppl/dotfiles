@@ -76,42 +76,27 @@ plugins=(
   pip
   python
   osx
+  docker
+  docker-compose
   zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
+#
 setopt HIST_IGNORE_SPACE
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-export GOPATH=$HOME/go
-export GOPROXY=https://proxy.golang.org
-
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH=$PATH:$GOPATH/bin
-export PATH="/usr/local/sbin:$PATH"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+
+

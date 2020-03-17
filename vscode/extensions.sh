@@ -1,14 +1,12 @@
 code --install-extension arcticicestudio.nord-visual-studio-code
 code --install-extension bungcip.better-toml
 code --install-extension dbaeumer.vscode-eslint
-code --install-extension dracula-theme.theme-dracula
-code --install-extension EditorConfig.EditorConfig
-code --install-extension Equinusocio.vsc-material-theme
-code --install-extension johnpapa.winteriscoming
+code --install-extension mauve.terraform
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-python.python
 code --install-extension ms-vscode.Go
+code --install-extension ms-vsliveshare.vsliveshare
 code --install-extension msjsdiag.debugger-for-chrome
 code --install-extension redhat.vscode-yaml
 code --install-extension vscodevim.vim
-code --install-extension zhuangtongfa.material-theme
+code --install-extension zxh404.vscode-proto3

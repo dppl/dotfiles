@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "'Cascadia Code PL', 'FiraCode-Retina', 'Iosevka'",
+  "editor.fontFamily": "'JetBrains Mono'",
   "editor.wordWrap": "on",
   "editor.rulers": [
     100
@@ -14,11 +14,9 @@
   "[ruby]": {
     "editor.tabSize": 2
   },
-  "files.trimTrailingWhitespace": true,
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },
-  "files.insertFinalNewline": true,
   "editor.renderLineHighlight": "all",
   "editor.minimap.enabled": false,
   "terminal.integrated.fontSize": 14,
@@ -38,10 +36,9 @@
   "go.useLanguageServer": true,
   "editor.lineNumbers": "relative",
   "debug.console.fontSize": 14,
-  "workbench.colorTheme": "Dracula",
+  "workbench.colorTheme": "Nord",
   "breadcrumbs.enabled": true,
   "editor.renderControlCharacters": false,
-  "editor.formatOnSave": true,
   "workbench.statusBar.visible": true,
   "vim.useSystemClipboard": true,
   "vim.leader": ",",
@@ -144,7 +141,7 @@
       "commands": [
         "workbench.actions.view.problems"
       ]
-    },
+    }
   ],
   "vim.normalModeKeyBindings": [
     {
@@ -226,17 +223,32 @@
       "commands": [
         "editor.action.showHover"
       ]
-    },
+    }
   ],
   "workbench.activityBar.visible": true,
-  "gitlens.advanced.telemetry.enabled": false,
-  "gitlens.blame.heatmap.enabled": false,
-  "gitlens.codeLens.authors.enabled": false,
-  "gitlens.codeLens.recentChange.enabled": false,
   "editor.fontSize": 14,
   "eslint.run": "onSave",
   "eslint.autoFixOnSave": true,
   "go.formatTool": "goimports",
   "go.autocompleteUnimportedPackages": true,
   "window.zoomLevel": 0,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "terraform.indexing": {
+    "enabled": true,
+    "liveIndexing": false,
+    "delay": 500,
+    "exclude": [
+      ".terraform/**/*",
+      "**/.terraform/**/*"
+    ]
+  },
+  "terraform.languageServer": {
+    "enabled": false,
+    "args": []
+  },
+  "terraform.codelens.enabled": false,
+  "terraform.telemetry.enabled": false,
+  "explorer.compactFolders": false
 }

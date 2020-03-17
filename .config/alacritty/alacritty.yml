@@ -1,3 +1,8 @@
+live_config_reload: false
+
+# env:
+  # TERM: xterm-256color
+
 shell:
   program: login
   args:
@@ -6,9 +11,10 @@ shell:
 
 window:
   padding:
-    x: 5
-    y: 5
+    x: 10
+    y: 10
   dynamic_padding: true
+  #decorations: 
 
 font:
   normal:
@@ -158,4 +164,8 @@ schemes:
       cyan: "#7fdbca"
       white: "#ffffff"
 
-colors: *palenight
+colors: *nord
+
+key_bindings:
+  - { key: F,      mods: Command|Control|Shift, action: ToggleFullscreen }
+  - { key: F,      mods: Command|Control, action: ToggleSimpleFullscreen }
