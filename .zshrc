@@ -84,19 +84,20 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-#
+
 setopt HIST_IGNORE_SPACE
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
-
+if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+  export COLORTERM="truecolor"
+fi
+export COLORTERM="truecolor"

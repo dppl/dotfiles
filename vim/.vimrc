@@ -1,14 +1,17 @@
+" ----------------------------------------------------------------------------
+" Plugins
+" ----------------------------------------------------------------------------
 call plug#begin()
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'protocolbuffers/protobuf', {'rtp': '/editors/'}
@@ -17,26 +20,30 @@ Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'arcticicestudio/nord-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
-"
+" ----------------------------------------------------------------------------
 " Settings
-"
-
+" ----------------------------------------------------------------------------
 let mapleader = ","
 let g:mapleader = ","
 
 syntax enable
 filetype plugin indent on
 
+if has('nvim')
+  let g:python_host_prog='/usr/bin/python2'
+  let g:python3_host_prog='/usr/local/bin/python3'
+endif
+
+
 set undodir=~/.vim/undo//
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 
 set number
-set relativenumber
 set noerrorbells
 set showcmd
 set hidden
@@ -77,13 +84,6 @@ set ttyfast
 set lazyredraw
 set list
 set listchars=tab:\|\ ,
-set colorcolumn=80
-"set re=1
-
-let g:netrw_banner=0
-let g:netrw_liststyle=3
-let g:netrw_dirhistmax=0
-
 
 set formatoptions+=1
 if has('patch-7.3.541')
@@ -117,6 +117,9 @@ endif
 
 if has('mouse')
   set mouse=a
+endif
+
+if !has('nvim')
   set ttymouse=sgr
 endif
 
@@ -130,89 +133,168 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 nnoremap <leader><space> :nohlsearch<CR>
-nnoremap <leader>c :cclose<bar>lclose<cr>
+nnoremap <leader>c :cclose<bar>lclose<CR>
 
 " ----------------------------------------------------------------------------
 " Statusline
 " ----------------------------------------------------------------------------
-"
-function! CocErrors()
+"hi StatusLine ctermbg=8 guibg=#3B4252 guifg=#D8DEE9
+hi StatusLine ctermbg=8 guibg=#2E3440 guifg=#D8DEE9
+hi StatusLineNC ctermbg=8 guibg=#2E3440 guifg=#D8DEE9
+
+"hi StatuslineBase ctermbg=8 guibg=#3B4252 guifg=#D8DEE9
+hi StatusLineBaseNC ctermbg=8 guibg=#2E3440 guifg=#616E88
+hi StatusLineBase ctermbg=8 guibg=#2E3440 guifg=#616E88
+
+hi CocStatusColor cterm=bold ctermbg=8 ctermfg=1 guibg=#2E3440 guifg=#BF616A
+hi GitInfoColor ctermbg=8 guibg=#2E3440 guifg=#616E88
+
+"hi LineInfoColor ctermbg=8 guibg=#3B4252 guifg=#81A1C1
+hi LineInfoColor ctermbg=8 guibg=#2E3440 guifg=#616E88
+
+let s:modes={
+  \'n' : 'Normal',
+  \'no' : 'N-Operator Pending',
+  \'v' : 'Visual',
+  \'V' : 'V-Line',
+  \'^V' : 'V-Block',
+  \'s' : 'Select',
+  \'S': 'S-Line',
+  \'^S' : 'S-Block',
+  \'i' : 'Insert',
+  \'R' : 'Replace',
+  \'Rv' : 'V-Replace',
+  \'c' : 'Command',
+  \'cv' : 'Vim Ex',
+  \'ce' : 'Ex',
+  \'r' : 'Prompt',
+  \'rm' : 'More',
+  \'r?' : 'Confirm',
+  \'!' : 'Shell',
+  \'t' : 'Terminal'
+  \}
+
+function! CurrentMode() abort
+  let l:currentMode =toupper(get(s:modes, mode(), 'NORMAL'))
+  if l:currentMode == 'NORMAL'
+    hi ModeColor cterm=bold ctermbg=8 ctermfg=2 guibg=#2E3440 guifg=#88C0D0
+  elseif currentMode == 'INSERT'
+    hi ModeColor cterm=bold ctermbg=NONE ctermfg=4 guibg=#2E3440 guifg=#A3BE8C
+  elseif currentMode == "VISUAL" || currentMode == "V-LINE" || currentMode == "V-BLOCK"
+    hi ModeColor cterm=bold ctermbg=NONE ctermfg=3 guibg=#2E3440 guifg=#EBCB8B
+  else
+    hi ModeColor cterm=bold ctermbg=NONE ctermfg=3 guibg=#2E3440 guifg=#B48EAD
+  endif
+  return currentMode
+endfunction
+
+function! FileInfo() abort
+  let l:filename =  '' != expand('%:F') ? expand('%:F') : '[No Name]'
+  if !&modifiable
+    hi FileInfoColor cterm=bold ctermbg=8 ctermfg=1 guibg=#2E3440 guifg=#BF616A
+    return l:filename . ' [-]'
+  endif
+  if &modified
+    hi FileInfoColor ctermbg=4 ctermfg=8 guibg=#2E3440 guifg=#D08770
+    return l:filename . ' [+]'
+  else
+    hi FileInfoColor ctermbg=8 guibg=#2E3440 guifg=#616E88
+  endif
+  return l:filename
+endfunction
+
+function! GitInfo() abort
+  let l:branch = FugitiveHead()
+  if l:branch == ''
+    return ''
+  else
+    return '| ' . l:branch
+  endif
+endfunction
+
+function! FileType()
+  if &filetype == ''
+    return '-'
+  else
+    return &filetype
+  endif
+endfunction
+
+function! LinePercent()
+  return (100 * line('.') / line('$')) . '%'
+endfunction
+
+function! CocStatus() abort
   let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
   let msgs = []
   if get(info, 'error', 0)
-    return 'E:' . info['error'].'(L'.info['lnums'][0].')'
+    call add(msgs, 'E:' . info['error'].'(L'.info['lnums'][0].')')
   endif
-  return ''
-endfunction
-
-function! CocWarnings()
-  let info = get(b:, 'coc_diagnostic_info', {})
-  let msgs = []
   if get(info, 'warning', 0)
-    return 'W:' . info['warning'].'(L'.info['lnums'][1].')'
+    call add(msgs, 'W:' . info['warning'].'(L'.info['lnums'][1].')')
   endif
+  return join(msgs, ' '). ' ' . get(g:, 'coc_status', ''). ' '
+endfunction
+
+function! ActiveStatusline()
+  let statusline=''
+  let statusline.='%#ModeColor#'
+  let statusline.=' %{CurrentMode()} '
+
+  let statusline.='%#FileInfoColor#'
+  let statusline.=' %{FileInfo()}'
+
+  let statusline.='%#GitInfoColor#'
+  let statusline.=' %{GitInfo()}'
+
+  let statusline.='%#StatuslineBase#'
+  let statusline.='%='
+
+  let statusline.='%#CocStatusColor#'
+  let statusline.='%{CocStatus()}'
+
+  let statusline.='%#LineInfoColor#'
+  let statusline.='%{FileType()}'
+
+  let statusline.='%#StatuslineBase#'
+  let statusline.=' | '
+
+  let statusline.='%#LineInfoColor#'
+  let statusline.='%{LinePercent()} %l:%v %*'
+
+  return statusline
+endfunction
+
+function! InactiveStatusline()
+  let statusline=''
+  let statusline.='%#FileInfoColor#'
+  let statusline.=' %{FileInfo()}'
+  let statusline.='%#StatuslineBaseNC#'
+  let statusline.='%='
+  let statusline.='%#LineInfoColor#'
+  let statusline.='%{FileType()}'
+
+  return statusline
+endfunction
+
+function! NERDLine()
   return ''
 endfunction
 
-function! CocStatus()
-  return get(g:, 'coc_status', '')
-endfunction
+augroup Statusline
+  autocmd!
+  autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveStatusline()
+  autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveStatusline()
+  autocmd FileType nerdtree setlocal statusline=%!NERDLine()
+augroup END
 
-let g:lightline = {'colorscheme': 'nord'}
-
-let g:lightline.active = {
-            \ 'left': [
-            \  [ 'mode', 'paste' ],
-            \  [ 'readonly', 'filename', 'modified', 'gitbranch' ],
-            \ ],
-            \ 'right': [
-            \   [ 'cocerrors', 'cocwarnings', 'cocstatus', 'currentfunction'],
-            \   [ 'lineinfo' ],
-            \   [ 'filetype' ],
-            \ ]
-            \ }
-
-let g:lightline.inactive = {
-            \ 'left': [
-            \  [],
-            \  [ 'filename' , 'modified' ]
-            \ ],
-            \ 'right': [
-            \   [ 'lineinfo' ],
-            \   [ 'fileformat' ],
-            \ ]
-            \ }
-
-let g:lightline.tabline = {
-            \ 'left': [ [ 'tabs' ] ],
-            \ 'right': [ ]
-            \ }
-
-let g:lightline.tab = {
-            \ 'active': [ 'tabnum', 'filename', 'modified' ],
-            \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
-
-let g:lightline.component = {
-            \ 'lineinfo': '%2p%% %3l:%-2v',
-            \ }
-
-let g:lightline.component_function = {
-            \ 'gitbranch': 'FugitiveHead',
-            \ 'currentfunction': 'CocCurrentFunction',
-            \ }
-
-let g:lightline.component_expand = {
-            \ 'cocerrors': 'CocErrors',
-            \ 'cocwarnings': 'CocWarnings',
-            \ 'cocstatus': 'CocStatus',
-            \ }
-
-let g:lightline.component_type = {
-            \ 'cocerrors': 'error',
-            \ 'cocwarnings': 'warning',
-            \ }
-
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" ----------------------------------------------------------------------------
+" TabLine
+" ----------------------------------------------------------------------------
+hi TabLine ctermbg=8 guibg=#2E3440 guifg=#616E88
+hi TabLineSel ctermbg=8 guibg=#2E3440 guifg=#88C0D0
+hi TabLineFill ctermbg=8 guibg=#2E3440 guifg=#BF616A
 
 " ----------------------------------------------------------------------------
 " Quickfix
@@ -234,30 +316,30 @@ nnoremap [b :bprev<cr>
 nnoremap ]t :tabn<cr>
 nnoremap [t :tabp<cr>
 
-" ----------------------------------------- "
-" File Type settings 			    		"
-" ----------------------------------------- "
+" ----------------------------------------------------------------------------
+" File Type settings
+" ----------------------------------------------------------------------------
+augroup fileTypes
+  autocmd!
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab softtabstop=8 shiftwidth=8
+  autocmd BufNewFile,BufRead *.vim setlocal noexpandtab softtabstop=4 shiftwidth=4 
+  autocmd BufNewFile,BufRead *.txt setlocal noexpandtab softtabstop=4 shiftwidth=4
+  autocmd BufNewFile,BufRead *.md setlocal noexpandtab softtabstop=4 shiftwidth=4 spell 
+  autocmd BufNewFile,BufRead *.yml,*.yaml setlocal expandtab softtabstop=2 shiftwidth=2
+  autocmd BufNewFile,BufRead *.cpp setlocal expandtab softtabstop=2 shiftwidth=2
+  autocmd BufNewFile,BufRead *.hpp setlocal expandtab softtabstop=2 shiftwidth=2
+  autocmd BufNewFile,BufRead *.json setlocal expandtab softtabstop=2 shiftwidth=2
+  autocmd BufNewFile,BufRead *.jade setlocal expandtab softtabstop=2 shiftwidth=2
+  autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+  autocmd BufNewFile,BufReadPost *.md setl shiftwidth=4 softtabstop=4 expandtab
+  autocmd BufNewFile,BufRead *.py setlocal  expandtab softtabstop=4 shiftwidth=4 textwidth=80
+  autocmd FileType dockerfile set noexpandtab
+  autocmd FileType gitcommit setlocal spell
+augroup END
 
-au BufNewFile,BufRead *.go setlocal noexpandtab softtabstop=8 shiftwidth=8
-au BufNewFile,BufRead *.vim setlocal noexpandtab softtabstop=4 shiftwidth=4 
-au BufNewFile,BufRead *.txt setlocal noexpandtab softtabstop=4 shiftwidth=4
-au BufNewFile,BufRead *.md setlocal noexpandtab softtabstop=4 shiftwidth=4 spell 
-au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.cpp setlocal expandtab softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.hpp setlocal expandtab softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.json setlocal expandtab softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.jade setlocal expandtab softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
-au BufNewFile,BufReadPost *.md setl shiftwidth=4 softtabstop=4 expandtab
-au BufNewFile,BufRead *.py setlocal  expandtab softtabstop=4 shiftwidth=4 textwidth=80
-au FileType dockerfile set noexpandtab
-au FileType gitcommit setlocal spell
-
-" ----------------------------------------- "
-" Plugin configs 			    			"
-" ----------------------------------------- "
-
-" ==================== CoC  ====================
+" ----------------------------------------------------------------------------
+" coc
+" ----------------------------------------------------------------------------
 
 set nobackup
 set nowritebackup
@@ -309,7 +391,9 @@ let g:coc_snippet_prev = '<c-k>'
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-" ==================== Vim-go ====================
+" ----------------------------------------------------------------------------
+" vim-go
+" ----------------------------------------------------------------------------
 
 let g:go_gopls_options = ['-remote=auto']
 
@@ -327,46 +411,42 @@ let g:go_highlight_format_strings = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_functions = 1
 
-au FileType go nmap <Leader>s <Plug>(go-def-split)
-au FileType go nmap <Leader>v <Plug>(go-def-vertical)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>l <Plug>(go-metalinter)
-
-au FileType go nmap <leader>r  <Plug>(go-run)
-au FileType go nmap <leader>b  <Plug>(go-build)
-au FileType go nmap <leader>t  <Plug>(go-test)
-au FileType go nmap <leader>dt  <Plug>(go-test-compile)
-au FileType go nmap <Leader>d <Plug>(go-doc)
-
-au FileType go nmap <Leader>rn <Plug>(go-rename)
-
 " I like these more!
 augroup go
   autocmd!
+  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+  
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+  autocmd FileType go nmap <leader>b  <Plug>(go-build)
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+  autocmd FileType go nmap <leader>dt  <Plug>(go-test-compile)
+  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+  
+  autocmd FileType go nmap <Leader>rn <Plug>(go-rename)
+
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
   autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
   autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 augroup END
 
-" ==================== delimitMate ====================
-"let g:delimitMate_expand_cr = 1
-"let g:delimitMate_expand_space = 1
-"let g:delimitMate_smart_quotes = 1
-"let g:delimitMate_expand_inside_quotes = 0
-"let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
-
-"==================== NerdTree ====================
-" For toggling
+" ----------------------------------------------------------------------------
+" NERDTree
+" ----------------------------------------------------------------------------
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 nmap <C-n> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" ========= vim-markdown ==================
+" ----------------------------------------------------------------------------
+" vim-markdown
+" ----------------------------------------------------------------------------
 
 " disable folding
 let g:vim_markdown_folding_disabled = 1
@@ -387,5 +467,21 @@ let g:vim_markdown_follow_anchor = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
+
+" ----------------------------------------------------------------------------
+" FZF
+" ----------------------------------------------------------------------------
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+augroup FZF
+if has('nvim')
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+endif
+augroup END
 
 " vim:set ft=vim et sw=2 sts=2:
