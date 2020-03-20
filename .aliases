@@ -1,9 +1,9 @@
 #!bin/sh
-export GIT_EDITOR=vim
-export EDITOR=vim
 
 #alias pbcopy="xclip -selection clipboard"
 #alias pbpaste="xclip -selection clipboard -o"
+
+alias vim="nvim"
 
 alias ..="cd .."
 alias ...="cd ../.."

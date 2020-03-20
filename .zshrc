@@ -100,4 +100,4 @@ complete -o nospace -C /usr/local/bin/terraform terraform
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export COLORTERM="truecolor"
 fi
-export COLORTERM="truecolor"
+
