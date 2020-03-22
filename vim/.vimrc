@@ -4,24 +4,25 @@
 call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'godlygeek/tabular'
+Plug 'SirVer/ultisnips'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'plasticboy/vim-markdown'
-Plug 'protocolbuffers/protobuf', {'rtp': '/editors/'}
 Plug 'hashivim/vim-terraform'
 Plug 'cespare/vim-toml'
-Plug 'stephpy/vim-yaml'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'arcticicestudio/nord-vim'
+Plug 'elzr/vim-json'
+Plug 'protocolbuffers/protobuf', {'rtp': '/editors/'}
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
+Plug 'arcticicestudio/nord-vim'
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -83,7 +84,10 @@ set ttimeoutlen=100
 set ttyfast
 set lazyredraw
 set list
-set listchars=tab:\|\ ,
+set list listchars=tab:»\ ,trail:·,nbsp:.
+set nobackup
+set nowritebackup
+set shortmess+=c
 
 set formatoptions+=1
 if has('patch-7.3.541')
@@ -138,19 +142,18 @@ nnoremap <leader>c :cclose<bar>lclose<CR>
 " ----------------------------------------------------------------------------
 " Statusline
 " ----------------------------------------------------------------------------
-"hi StatusLine ctermbg=8 guibg=#3B4252 guifg=#D8DEE9
-hi StatusLine ctermbg=8 guibg=#2E3440 guifg=#D8DEE9
-hi StatusLineNC ctermbg=8 guibg=#2E3440 guifg=#D8DEE9
 
-"hi StatuslineBase ctermbg=8 guibg=#3B4252 guifg=#D8DEE9
-hi StatusLineBaseNC ctermbg=8 guibg=#2E3440 guifg=#616E88
-hi StatusLineBase ctermbg=8 guibg=#2E3440 guifg=#616E88
+" Nord
+hi StatusLine ctermbg=0  guibg=#3B4252 guifg=#D8DEE9
+hi StatusLineNC ctermbg=0  guibg=#3B4252 guifg=#D8DEE9
 
-hi CocStatusColor cterm=bold ctermbg=8 ctermfg=1 guibg=#2E3440 guifg=#BF616A
-hi GitInfoColor ctermbg=8 guibg=#2E3440 guifg=#616E88
+hi StatusLineBase ctermbg=0 ctermfg=15 guibg=#3B4252 guifg=#D8DEE9
+hi StatusLineBaseNC ctermbg=0 ctermfg=15 guibg=#3B4252 guifg=#D8DEE9
 
-"hi LineInfoColor ctermbg=8 guibg=#3B4252 guifg=#81A1C1
-hi LineInfoColor ctermbg=8 guibg=#2E3440 guifg=#616E88
+hi CocStatusColor cterm=bold ctermbg=0 ctermfg=1 guibg=#3B4252 guifg=#BF616A
+hi GitInfoColor ctermbg=0 ctermfg=15 guibg=#3B4252 guifg=#D8DEE9
+
+hi LineInfoColor ctermbg=0 ctermfg=15 guibg=#3B4252 guifg=#D8DEE9
 
 let s:modes={
   \'n' : 'Normal',
@@ -177,13 +180,13 @@ let s:modes={
 function! CurrentMode() abort
   let l:currentMode =toupper(get(s:modes, mode(), 'NORMAL'))
   if l:currentMode == 'NORMAL'
-    hi ModeColor cterm=bold ctermbg=8 ctermfg=2 guibg=#2E3440 guifg=#88C0D0
+    hi ModeColor cterm=bold ctermbg=0 ctermfg=4 guibg=#3B4252 guifg=#88C0D0
   elseif currentMode == 'INSERT'
-    hi ModeColor cterm=bold ctermbg=NONE ctermfg=4 guibg=#2E3440 guifg=#A3BE8C
+    hi ModeColor cterm=bold ctermbg=0 ctermfg=2 guibg=#3B4252 guifg=#A3BE8C
   elseif currentMode == "VISUAL" || currentMode == "V-LINE" || currentMode == "V-BLOCK"
-    hi ModeColor cterm=bold ctermbg=NONE ctermfg=3 guibg=#2E3440 guifg=#EBCB8B
+    hi ModeColor cterm=bold ctermbg=0 ctermfg=3 guibg=#3B4252 guifg=#B48EAD
   else
-    hi ModeColor cterm=bold ctermbg=NONE ctermfg=3 guibg=#2E3440 guifg=#B48EAD
+    hi ModeColor cterm=bold ctermbg=0 ctermfg=4 guibg=#3B4252 guifg=#8FBCBB
   endif
   return currentMode
 endfunction
@@ -191,16 +194,17 @@ endfunction
 function! FileInfo() abort
   let l:filename =  '' != expand('%:F') ? expand('%:F') : '[No Name]'
   if !&modifiable
-    hi FileInfoColor cterm=bold ctermbg=8 ctermfg=1 guibg=#2E3440 guifg=#BF616A
+    hi FileInfoColor cterm=bold ctermbg=0 ctermfg=1 guibg=#3B4252 guifg=#BF616A
     return l:filename . ' [-]'
   endif
+
   if &modified
-    hi FileInfoColor ctermbg=4 ctermfg=8 guibg=#2E3440 guifg=#D08770
+    hi FileInfoColor ctermbg=0 ctermfg=8 guibg=#3B4252 guifg=#EBCB8B
     return l:filename . ' [+]'
   else
-    hi FileInfoColor ctermbg=8 guibg=#2E3440 guifg=#616E88
+    hi FileInfoColor ctermbg=0 guibg=#3B4252 guifg=#D8DEE9
+    return l:filename
   endif
-  return l:filename
 endfunction
 
 function! GitInfo() abort
@@ -252,10 +256,10 @@ function! ActiveStatusline()
   let statusline.='%='
 
   let statusline.='%#CocStatusColor#'
-  let statusline.='%{CocStatus()}'
+  let statusline.='%{CocStatus()} '
 
   let statusline.='%#LineInfoColor#'
-  let statusline.='%{FileType()}'
+  let statusline.=' %{FileType()}'
 
   let statusline.='%#StatuslineBase#'
   let statusline.=' | '
@@ -340,10 +344,20 @@ augroup END
 " ----------------------------------------------------------------------------
 " coc
 " ----------------------------------------------------------------------------
+let g:coc_global_extensions = [ 'coc-yaml', 'coc-clangd', 'coc-json',
+  \ 'coc-lists', 'coc-snippets', 'coc-python']
 
-set nobackup
-set nowritebackup
-set shortmess+=c
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -355,11 +369,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-nmap <leader>rn <Plug>(coc-rename)
-
-xmap <leader>cf  <Plug>(coc-format-selected)
-nmap <leader>cf  <Plug>(coc-format-selected)
 
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 
@@ -390,6 +399,17 @@ let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " ----------------------------------------------------------------------------
 " vim-go
@@ -475,6 +495,9 @@ command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+        \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 augroup FZF
 if has('nvim')
