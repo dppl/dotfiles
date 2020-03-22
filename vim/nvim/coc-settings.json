@@ -6,5 +6,14 @@
       "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "clangd.path": "/usr/local/opt/llvm/bin/clangd",
+  "python.jediEnabled": false,
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.checkCurrentLine": true,
+  "coc.preferences.colorSupport": false,
+  "diagnostic.virtualText": true,
+  "diagnostic.enableMessage": "never",
+  "list.source.grep.command": "rg"
 }
