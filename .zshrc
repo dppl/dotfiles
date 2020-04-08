@@ -70,15 +70,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  colored-man-pages
-  colorize
-  pip
-  python
-  osx
   docker
   docker-compose
-  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -93,11 +86,15 @@ setopt HIST_IGNORE_SPACE
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+fpath+=~/.zfunc
 
-autoload -U +X bashcompinit && bashcompinit
+#autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+complete -C '/usr/local/bin/aws_completer' aws
 
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export COLORTERM="truecolor"
 fi
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+rm -f "$HOME/.zcompdump"; compinit

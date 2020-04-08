@@ -1,9 +1,6 @@
 {
-  "editor.fontFamily": "'JetBrains Mono'",
+  "editor.fontFamily": "'Cascadia Code PL', 'JetBrains Mono'",
   "editor.wordWrap": "on",
-  "editor.rulers": [
-    100
-  ],
   "[javascript]": {
     "editor.tabSize": 2,
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -17,29 +14,45 @@
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },
-  "editor.renderLineHighlight": "all",
+  "go.useLanguageServer": true,
+  "go.formatTool": "goimports",
+  "go.autocompleteUnimportedPackages": true,
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+    },
+    // Optional: Disable snippets, as they conflict with completion ranking.
+    "editor.snippetSuggestions": "none",
+  },
+  "[go.mod]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+    },
+  },
+  "gopls": {
+    // Add parameter placeholders when completing a function.
+    "usePlaceholders": true,
+    // If true, enable additional analyses with staticcheck.
+    // Warning: This will significantly increase memory usage.
+    "staticcheck": false,
+  },
   "editor.minimap.enabled": false,
   "terminal.integrated.fontSize": 14,
-  "files.eol": "\n",
-  "extensions.ignoreRecommendations": false,
-  "python.pythonPath": "/usr/local/bin/python3",
-  "python.linting.pylintArgs": [
-    "--load-plugins=pylint_django"
-  ],
-  "editor.fontLigatures": true,
-  "diffEditor.ignoreTrimWhitespace": false,
-  "[go]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
-  },
-  "go.useLanguageServer": true,
-  "editor.lineNumbers": "relative",
   "debug.console.fontSize": 14,
-  "workbench.colorTheme": "Nord",
-  "breadcrumbs.enabled": true,
+  "python.pythonPath": "/usr/local/bin/python3",
+  "editor.fontLigatures": true,
+  "editor.lineNumbers": "relative",
   "editor.renderControlCharacters": false,
   "workbench.statusBar.visible": true,
+  "editor.fontSize": 14,
+  "eslint.run": "onSave",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "explorer.compactFolders": false,
+  "workbench.colorTheme": "Nord",
   "vim.useSystemClipboard": true,
   "vim.leader": ",",
   "vim.insertModeKeyBindings": [
@@ -61,48 +74,6 @@
       ],
       "commands": [
         "workbench.action.files.save"
-      ]
-    },
-    {
-      "before": [
-        "n"
-      ],
-      "after": [
-        "n",
-        "z",
-        "z",
-        "v"
-      ]
-    },
-    {
-      "before": [
-        "N"
-      ],
-      "after": [
-        "N",
-        "z",
-        "z",
-        "v"
-      ]
-    },
-    {
-      "before": [
-        "<C-d>"
-      ],
-      "after": [
-        "<C-d>",
-        "z",
-        "z"
-      ]
-    },
-    {
-      "before": [
-        "<C-u>"
-      ],
-      "after": [
-        "<C-u>",
-        "z",
-        "z"
       ]
     },
     {
@@ -133,20 +104,21 @@
         "workbench.action.gotoSymbol"
       ]
     },
-    {
-      "before": [
-        "<leader>",
-        "a"
-      ],
-      "commands": [
-        "workbench.actions.view.problems"
-      ]
-    }
   ],
   "vim.normalModeKeyBindings": [
     {
       "before": [
-        "<C-k>"
+        "[",
+        "g"
+      ],
+      "commands": [
+        "editor.action.marker.prevInFiles"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "g"
       ],
       "commands": [
         "editor.action.marker.nextInFiles"
@@ -154,10 +126,43 @@
     },
     {
       "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "workbench.action.focusAboveGroup"
+      ]
+    },
+    {
+      "before": [
         "<C-j>"
       ],
       "commands": [
-        "editor.action.marker.prevInFiles"
+        "workbench.action.focusBelowGroup"
+      ]
+    },
+    {
+      "before": [
+        "<C-h>"
+      ],
+      "commands": [
+        "workbench.action.focusLeftGroup"
+      ]
+    },
+    {
+      "before": [
+        "<C-l>"
+      ],
+      "commands": [
+        "workbench.action.focusRightGroup"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.togglePanel"
       ]
     },
     {
@@ -218,6 +223,24 @@
     {
       "before": [
         "<leader>",
+        "o"
+      ],
+      "commands": [
+        "workbench.action.gotoSymbol"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.showAllSymbols"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
         "i"
       ],
       "commands": [
@@ -225,30 +248,4 @@
       ]
     }
   ],
-  "workbench.activityBar.visible": true,
-  "editor.fontSize": 14,
-  "eslint.run": "onSave",
-  "eslint.autoFixOnSave": true,
-  "go.formatTool": "goimports",
-  "go.autocompleteUnimportedPackages": true,
-  "window.zoomLevel": 0,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "terraform.indexing": {
-    "enabled": true,
-    "liveIndexing": false,
-    "delay": 500,
-    "exclude": [
-      ".terraform/**/*",
-      "**/.terraform/**/*"
-    ]
-  },
-  "terraform.languageServer": {
-    "enabled": false,
-    "args": []
-  },
-  "terraform.codelens.enabled": false,
-  "terraform.telemetry.enabled": false,
-  "explorer.compactFolders": false
 }
