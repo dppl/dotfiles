@@ -2,6 +2,7 @@
 " Plugins
 " ----------------------------------------------------------------------------
 call plug#begin()
+Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'honza/vim-snippets'
@@ -11,6 +12,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'SirVer/ultisnips'
 Plug 'pangloss/vim-javascript'
@@ -49,6 +51,7 @@ set noerrorbells
 set showcmd
 set hidden
 set noshowmatch
+set cmdheight=2
 set noshowmode
 set ignorecase
 set smartcase
@@ -241,6 +244,8 @@ function! CocStatus() abort
   return join(msgs, ' '). ' ' . get(g:, 'coc_status', ''). ' '
 endfunction
 
+set statusline=
+
 function! ActiveStatusline()
   let statusline=''
   let statusline.='%#ModeColor#'
@@ -256,10 +261,10 @@ function! ActiveStatusline()
   let statusline.='%='
 
   let statusline.='%#CocStatusColor#'
-  let statusline.='%{CocStatus()} '
+  let statusline.='%{CocStatus()}'
 
   let statusline.='%#LineInfoColor#'
-  let statusline.=' %{FileType()}'
+  let statusline.='%{FileType()}'
 
   let statusline.='%#StatuslineBase#'
   let statusline.=' | '
@@ -463,6 +468,11 @@ let NERDTreeDirArrows = 1
 nmap <C-n> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" ----------------------------------------------------------------------------
+" vim-json
+" ----------------------------------------------------------------------------
+let g:vim_json_syntax_conceal = 0
 
 " ----------------------------------------------------------------------------
 " vim-markdown
